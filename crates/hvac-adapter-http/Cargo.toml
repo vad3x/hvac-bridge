@@ -1,0 +1,24 @@
+[package]
+name = "hvac-adapter-http"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Web dashboard, REST API, and HTTP server for CN105 HVAC Matter Bridge"
+
+[dependencies]
+hvac-core = { path = "../hvac-core", default-features = false }
+edf-http-diagnostics = { workspace = true }
+edf-http-ota = { workspace = true }
+embassy-net = { workspace = true, features = ["tcp", "proto-ipv4", "medium-ethernet"] }
+embassy-time = { workspace = true, features = ["generic-queue-8"] }
+log = { workspace = true }
+
+[build-dependencies]
+flate2 = { workspace = true }
+
+[dev-dependencies]
+critical-section = { workspace = true, features = ["std"] }
+embassy-time = { workspace = true, features = ["std", "generic-queue-8"] }
+flate2 = { workspace = true }
+futures = { workspace = true }
+serde_json = { workspace = true }

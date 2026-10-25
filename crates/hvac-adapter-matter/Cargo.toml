@@ -1,0 +1,33 @@
+[package]
+name = "hvac-adapter-matter"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Matter protocol adapter for CN105 HVAC Bridge (ESP32-C6)"
+
+[dependencies]
+edf-matter = { workspace = true }
+hvac-core = { path = "../hvac-core" }
+rs-matter = { workspace = true }
+embassy-sync = { workspace = true }
+embassy-futures = { workspace = true }
+embassy-time = { workspace = true, features = ["generic-queue-8"] }
+log = { workspace = true }
+portable-atomic = { workspace = true, features = ["critical-section"] }
+
+[target.'cfg(target_arch = "riscv32")'.dependencies]
+hvac-adapter-gpio = { path = "../hvac-adapter-gpio" }
+esp-hal = { workspace = true, features = ["log-04", "unstable", "esp32c6"] }
+esp-rtos = { workspace = true, features = ["esp-radio", "embassy", "esp32c6"] }
+esp-radio = { workspace = true, features = ["esp32c6", "unstable"] }
+esp-alloc = { workspace = true, features = ["esp32c6"] }
+esp-storage = { workspace = true, features = ["esp32c6"] }
+esp-println = { workspace = true, default-features = false, features = ["uart", "log-04", "esp32c6"] }
+esp-bootloader-esp-idf = { workspace = true, features = ["log-04", "esp32c6"] }
+rs-matter-embassy = { path = "../../../rs-matter-embassy/rs-matter-embassy", default-features = false, features = ["esp", "trouble", "embassy-net", "dhcpv4-hostname", "log", "rustcrypto", "kv-blob-store-8192", "mld-v1-compat", "nd-learn-from-frames"] }
+static_cell = { workspace = true }
+
+[dev-dependencies]
+critical-section = { workspace = true, features = ["std"] }
+embassy-time = { workspace = true, features = ["std", "generic-queue-8"] }
+futures = { workspace = true }

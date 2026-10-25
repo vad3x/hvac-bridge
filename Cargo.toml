@@ -1,0 +1,70 @@
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[workspace]
+members = [
+    "crates/hvac-core",
+    "crates/hvac-adapter-cn105",
+    "crates/hvac-adapter-gpio",
+    "crates/hvac-adapter-matter",
+    "crates/hvac-adapter-http",
+    "crates/hvac-pairing-tool",
+    "crates/hvac-firmware",
+]
+resolver = "2"
+
+[workspace.dependencies]
+edf-core = { path = "../embedded-device-foundation/crates/edf-core" }
+edf-gpio = { path = "../embedded-device-foundation/crates/edf-gpio" }
+edf-http-diagnostics = { path = "../embedded-device-foundation/crates/edf-http-diagnostics", default-features = false }
+edf-http-ota = { path = "../embedded-device-foundation/crates/edf-http-ota", default-features = false }
+edf-logger = { path = "../embedded-device-foundation/crates/edf-logger" }
+edf-matter = { path = "../embedded-device-foundation/crates/edf-matter" }
+edf-ota = { path = "../embedded-device-foundation/crates/edf-ota", default-features = false }
+edf-pairing-tool = { path = "../embedded-device-foundation/crates/edf-pairing-tool" }
+critical-section = "=1.2.0"
+log = "=0.4.34"
+embassy-executor = "=0.10.0"
+embassy-futures = "=0.1.2"
+embassy-sync = { version = "=0.8.0", default-features = false }
+embassy-time = { version = "=0.5.1", default-features = false }
+embassy-net = { version = "=0.9.1", default-features = false }
+embedded-storage = "=0.3.2"
+embedded-storage-async = "=0.4.2"
+esp-storage = "=0.10.0"
+ed25519-dalek = { version = "=3.0.0", default-features = false, features = ["hazmat"] }
+sha2 = { version = "=0.11.1", default-features = false }
+crc32fast = { version = "=1.5.3", default-features = false }
+portable-atomic = "=1.15.0"
+static_cell = "=2.1.1"
+futures = "=0.3.34"
+flate2 = "=1.1.10"
+serde_json = "=1.0.154"
+rs-matter = { version = "=0.4.1", default-features = false }
+esp-backtrace = "=0.20.0"
+esp-hal = "=1.2.2"
+esp-rtos = "=0.4.0"
+esp-radio = "=1.0.0-beta.1"
+esp-alloc = "=0.11.0"
+esp-println = { version = "=0.18.0", default-features = false }
+esp-bootloader-esp-idf = "=0.6.0"
+esp-metadata-generated = "=0.5.3"
+esp-wifi-sys-esp32c6 = "=0.3.0"
+
+[patch.crates-io]
+rs-matter = { path = "../rs-matter/rs-matter" }
+rs-matter-stack = { path = "../rs-matter-stack" }
+
+[profile.dev]
+opt-level = "z"
+incremental = false
+debug = 1
+
+[profile.release]
+codegen-units = 1
+debug = 1
+debug-assertions = false
+opt-level = "s"
+overflow-checks = false

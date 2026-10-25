@@ -1,0 +1,16 @@
+[build]
+target = "riscv32imac-unknown-none-elf"
+
+[target.riscv32imac-unknown-none-elf]
+runner = "espflash flash --partition-table partitions.csv --erase-parts otadata --monitor"
+rustflags = ["-C", "link-arg=-Tlinkall.x", "-C", "force-frame-pointers"]
+
+[unstable]
+build-std = ["core", "alloc", "panic_abort"]
+
+[alias]
+qr = ["run", "-p", "hvac-pairing-tool", "--target", "x86_64-apple-darwin", "--"]
+fe-dev = ["fe", "dev"]
+fe-build = ["fe", "build"]
+fe-check = ["fe", "check"]
+fe-install = ["fe", "install"]

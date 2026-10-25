@@ -1,0 +1,17 @@
+/target
+**/*.rs.bk
+.DS_Store
+*.bin
+
+node_modules/
+
+# Generated web dashboard bundle
+crates/hvac-adapter-http/assets/dashboard.html
+
+# OTA Firmware Signing Keys
+ota_public_key.bin
+
+
+# Superpowers specs and implementation plans
+.superpowers/
+docs/superpowers/

@@ -1,0 +1,35 @@
+{
+  "name": "hvac-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --bun vite",
+    "build": "bun --bun vite build && mv ../assets/index.html ../assets/dashboard.html",
+    "preview": "bun --bun vite preview",
+    "typecheck": "bun --bun tsc --noEmit",
+    "test": "bun test",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "check": "bun run typecheck && bun run lint"
+  },
+  "dependencies": {
+    "@embedded-device-foundation/dashboard-core": "file:../../../../embedded-device-foundation/packages/dashboard-core",
+    "clsx": "2.1.1",
+    "lucide-solid": "1.61.0",
+    "solid-js": "1.9.17",
+    "tailwind-merge": "3.7.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.2",
+    "@tailwindcss/postcss": "4.3.3",
+    "autoprefixer": "10.6.1",
+    "daisyui": "5.7.50",
+    "postcss": "8.5.31",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
+    "vite-plugin-singlefile": "2.3.4",
+    "vite-plugin-solid": "2.11.14"
+  }
+}

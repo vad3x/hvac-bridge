@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -e
+
+# Resolve frontend directory from current repository root or fallback to script location
+GIT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+if [ -d "$GIT_ROOT/crates/intercom-adapter-http/frontend" ]; then
+  FRONTEND_DIR="$GIT_ROOT/crates/intercom-adapter-http/frontend"
+elif [ -d "$GIT_ROOT/crates/hvac-adapter-http/frontend" ]; then
+  FRONTEND_DIR="$GIT_ROOT/crates/hvac-adapter-http/frontend"
+else
+  WORKSPACE_ROOT="$(python3 -c "import os, sys; print(os.path.dirname(os.path.dirname(os.path.realpath(sys.argv[1]))))" "${BASH_SOURCE[0]}")"
+  if [ -d "$WORKSPACE_ROOT/crates/intercom-adapter-http/frontend" ]; then
+    FRONTEND_DIR="$WORKSPACE_ROOT/crates/intercom-adapter-http/frontend"
+  else
+    FRONTEND_DIR="$WORKSPACE_ROOT/crates/hvac-adapter-http/frontend"
+  fi
+fi
+
+if [ ! -d "$FRONTEND_DIR" ]; then
+  echo "Error: Frontend directory not found at $FRONTEND_DIR" >&2
+  exit 1
+fi
+
+cd "$FRONTEND_DIR"
+
+# Cargo passes its own subcommand name ("fe") as first arg if invoked as cargo fe <subcmd>
+if [ "$1" = "fe" ]; then
+  shift
+fi
+
+CMD="${1:-dev}"
+shift || true
+
+case "$CMD" in
+  dev)
+    exec bun run dev "$@"
+    ;;
+  build)
+    exec bun run build "$@"
+    ;;
+  check)
+    exec bun run check "$@"
+    ;;
+  lint)
+    exec bun run lint "$@"
+    ;;
+  format)
+    exec bun run format "$@"
+    ;;
+  install)
+    exec bun install "$@"
+    ;;
+  *)
+    exec bun run "$CMD" "$@"
+    ;;
+esac

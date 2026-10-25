@@ -1,0 +1,10 @@
+[package]
+name = "hvac-pairing-tool"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Host CLI tool for generating Matter commissioning QR and manual pairing codes"
+
+[dependencies]
+edf-pairing-tool = { workspace = true }
+rs-matter = { workspace = true }

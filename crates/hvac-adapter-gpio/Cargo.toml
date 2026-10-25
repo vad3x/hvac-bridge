@@ -1,0 +1,20 @@
+[package]
+name = "hvac-adapter-gpio"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Hardware GPIO & flash adapter for CN105 HVAC Matter Bridge (ESP32-C6)"
+
+[dependencies]
+edf-gpio = { workspace = true }
+hvac-core = { path = "../hvac-core", default-features = false }
+
+[target.'cfg(target_arch = "riscv32")'.dependencies]
+esp-hal = { workspace = true, features = ["log-04", "unstable", "esp32c6"] }
+
+[dev-dependencies]
+futures = { workspace = true }
+critical-section = { workspace = true, features = ["std"] }
+embassy-futures = { workspace = true }
+embassy-time = { workspace = true, features = ["std", "generic-queue-8"] }
+embedded-storage-async = { workspace = true }

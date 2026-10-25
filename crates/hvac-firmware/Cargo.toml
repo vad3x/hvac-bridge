@@ -1,0 +1,50 @@
+[package]
+name = "hvac-firmware"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "ESP32-C6 firmware composition root for CN105 HVAC Matter Bridge"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "hvac-bridge"
+path = "src/main.rs"
+harness = false
+test = false
+
+[features]
+dummy-persist = []
+
+[dependencies]
+edf-logger = { workspace = true }
+edf-ota = { workspace = true }
+hvac-core = { path = "../hvac-core" }
+hvac-adapter-http = { path = "../hvac-adapter-http" }
+rs-matter = { workspace = true }
+critical-section = { workspace = true }
+log = { workspace = true }
+embassy-executor = { workspace = true }
+embassy-futures = { workspace = true }
+embassy-sync = { workspace = true }
+embassy-time = { workspace = true, features = ["generic-queue-8"] }
+portable-atomic = { workspace = true, features = ["critical-section"] }
+static_cell = { workspace = true }
+
+[target.'cfg(target_arch = "riscv32")'.dependencies]
+hvac-adapter-gpio = { path = "../hvac-adapter-gpio" }
+hvac-adapter-matter = { path = "../hvac-adapter-matter" }
+hvac-adapter-cn105 = { path = "../hvac-adapter-cn105" }
+esp-backtrace = { workspace = true, features = ["panic-handler", "println", "custom-halt", "esp32c6"] }
+esp-hal = { workspace = true, features = ["log-04", "unstable", "exception-handler", "esp32c6"] }
+esp-rtos = { workspace = true, features = ["esp-radio", "embassy", "esp32c6"] }
+esp-alloc = { workspace = true }
+esp-println = { workspace = true, default-features = false, features = ["uart", "log-04", "esp32c6"] }
+esp-bootloader-esp-idf = { workspace = true, features = ["log-04", "esp32c6"] }
+esp-metadata-generated = { workspace = true, features = ["esp32c6"] }
+rs-matter-embassy = { path = "../../../rs-matter-embassy/rs-matter-embassy", default-features = false, features = ["esp", "trouble", "embassy-net", "dhcpv4-hostname", "log", "rustcrypto", "kv-blob-store-8192", "mld-v1-compat", "nd-learn-from-frames"] }
+esp-wifi-sys-esp32c6 = { workspace = true }
+
+[dev-dependencies]
+critical-section = { workspace = true, features = ["std"] }
